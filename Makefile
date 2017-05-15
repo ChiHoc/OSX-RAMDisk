@@ -1,12 +1,16 @@
 install:
-	[ ! -d /usr/local/bin/ ] && mkdir -p /usr/local/bin
-	cp createRAMDiskandMoveCaches.sh /usr/local/bin/
+	cp Contents/MacOS/startupRAMDiskandCacheMover.sh /usr/local/bin/
 	cp ./OSXRamDisk.plist ~/Library/LaunchAgents/
 	[ -f ~/Library/LaunchAgents/OSXRamDisk.plist ] && launchctl load -w ~/Library/LaunchAgents/OSXRamDisk.plist
 
 uninstall:
-	[ -f ~/Library/LaunchAgents/OSXRamDisk.plist ] && launchctl unload -w ~/Library/LaunchAgents/OSXRamDisk.plist
-	[ -f /usr/local/bin/createRAMDiskandMoveCaches.sh ] && rm -f /usr/local/bin/createRAMDiskandMoveCaches.sh
-	[ -f ~/Library/LaunchAgents/OSXRamDisk.plist ] && rm -f ~/Library/LaunchAgents/OSXRamDisk.plist
-	[ -h ~/Library/Caches/Google/Chrome/Default ] && bash -c "rm -f ~/Library/Caches/Google/Chrome/Default; mkdir ~/Library/Caches/Google/Chrome/Default"
-	./uninstall.sh
+	launchctl unload -w ~/Library/LaunchAgents/OSXRamDisk.plist
+	rm -f /usr/local/bin/startupRAMDiskandCacheMover.sh
+	rm -f ~/Library/LaunchAgents/OSXRamDisk.plist
+	rm -rf ~/Library/Developer/Xcode/DerivedData
+	rm -rf ~/Library/Caches/AndroidStudio2.3
+	rm -rf ~/Library/Caches/IntelliJIdea2017.1
+	rm -rf ~/Library/Caches/com.apple.iTunes
+	rm -rf ~/Library/Caches/com.apple.Safari
+	rm -rf ~/Library/Caches/Google
+	umount -f /Volumes/ramdisk
