@@ -113,7 +113,9 @@ move_idea_cache()
 {
     if [ -d "/Applications/IntelliJ IDEA.app" ]; then
         close_app "IntelliJ Idea"
-        move_cache ~/Library/Caches/IntelliJIdea2017.1 IntelliJ/Caches 
+        for dir in  ~/Library/Caches/IntelliJIdea*; do 
+            move_cache $dir ${dir##*/}/Caches
+        done
         echo "Moved IntelliJ cache."
     fi
 }
