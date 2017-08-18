@@ -128,7 +128,9 @@ move_android_studio_cache()
     if [ -d "/Applications/Android Studio.app" ]; then
         echo "moving Android Studio cache";
         close_app "Android Studio"
-        move_cache ~/Library/Caches/AndroidStudio2.3 AndroidStudio/Caches
+        for dir in  ~/Library/Caches/AndroidStudio*; do 
+            move_cache $dir ${dir##*/}/Caches
+        done
         echo "Moved Android cache."
     fi
 }
