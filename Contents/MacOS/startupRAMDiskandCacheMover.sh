@@ -108,7 +108,6 @@ move_itunes_cache()
 #
 # Intellij Idea
 #
-# fixme - what if the version is not 14?
 move_idea_cache()
 {
     if [ -d "/Applications/IntelliJ IDEA.app" ]; then
@@ -117,6 +116,20 @@ move_idea_cache()
             move_cache $dir ${dir##*/}/Caches
         done
         echo "Moved IntelliJ cache."
+    fi
+}
+
+#
+# Intellij PhpStorm
+#
+move_phpstorm_cache()
+{
+    if [ -d "/Applications/PhpStorm.app" ]; then
+        close_app "PhpStorm"
+        for dir in  ~/Library/Caches/PhpStorm*; do 
+            move_cache $dir ${dir##*/}/Caches
+        done
+        echo "Moved PhpStorm cache."
     fi
 }
 
@@ -156,6 +169,7 @@ main() {
     move_chrome_cache
     move_safari_cache
     move_idea_cache
+    move_phpstorm_cache
     move_itunes_cache
     move_android_studio_cache
     move_xcode_cache
