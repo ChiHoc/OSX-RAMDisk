@@ -112,9 +112,8 @@ move_idea_cache()
 {
     if [ -d "/Applications/IntelliJ IDEA.app" ]; then
         close_app "IntelliJ Idea"
-        for dir in  ~/Library/Caches/IntelliJIdea*; do 
-            move_cache $dir ${dir##*/}/Caches
-        done
+        cacheDir=`/usr/libexec/PlistBuddy -c 'print JVMOptions:Properties:idea.paths.selector' '/Applications/IntelliJ IDEA.app/Contents/Info.plist'`
+        move_cache ~/Library/Caches/${cacheDir} ${cacheDir}
         echo "Moved IntelliJ cache."
     fi
 }
@@ -126,9 +125,8 @@ move_phpstorm_cache()
 {
     if [ -d "/Applications/PhpStorm.app" ]; then
         close_app "PhpStorm"
-        for dir in  ~/Library/Caches/PhpStorm*; do 
-            move_cache $dir ${dir##*/}/Caches
-        done
+        cacheDir=`/usr/libexec/PlistBuddy -c 'print JVMOptions:Properties:idea.paths.selector' '/Applications/PhpStorm.app/Contents/Info.plist'`
+        move_cache ~/Library/Caches/${cacheDir} ${cacheDir}
         echo "Moved PhpStorm cache."
     fi
 }
@@ -141,9 +139,8 @@ move_android_studio_cache()
     if [ -d "/Applications/Android Studio.app" ]; then
         echo "moving Android Studio cache";
         close_app "Android Studio"
-        for dir in  ~/Library/Caches/AndroidStudio*; do 
-            move_cache $dir ${dir##*/}/Caches
-        done
+        cacheDir=`/usr/libexec/PlistBuddy -c 'print JVMOptions:Properties:idea.paths.selector' '/Applications/Android Studio.app/Contents/Info.plist'`
+        move_cache ~/Library/Caches/${cacheDir} ${cacheDir}
         echo "Moved Android cache."
     fi
 }
